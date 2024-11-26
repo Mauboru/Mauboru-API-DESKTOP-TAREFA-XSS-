@@ -10,7 +10,8 @@
     "dependencies": {
         "nodemon": "^3.1.7",
         "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react-dom": "^17.0.2",
+        "ui-xss-reactjs": "file:"
     },
     "devDependencies": {
         "@vitejs/plugin-react": "^1.0.7",
