@@ -37,7 +37,6 @@ router.get('/mostrarNotificacao', ApiController.mostrarNotificacao);
 // Rota para cadastrar uma nova notificacao
 router.patch('/atualizarNotificacao', ApiController.atualizarNotificacao);
 
-
 // **Rotas para mensagens relacionadas a XSS**
 // Rota para listar todas as mensagens
 router.get('/messages', XSSController.listarMensagens);

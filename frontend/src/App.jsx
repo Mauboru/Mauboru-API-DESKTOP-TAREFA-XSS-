@@ -4,7 +4,7 @@ import './App.css';
 // Funções para carregar e salvar mensagens
 async function loadMessages(setMessages) {
     try {
-        const res = await fetch('http://localhost:4000/messages', {
+        const res = await fetch('http://localhost:3000/messages', {
             method: 'GET',
         });
 
