@@ -1,0 +1,100 @@
+/* App.css */
+
+/* Estilos gerais */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do título */
+.title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+}
+
+/* Formulário de envio */
+.message-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.message-input {
+    width: 100%;
+    max-width: 500px;
+    height: 150px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    resize: none;
+    background-color: #f9f9f9;
+}
+
+.message-input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Botão para limpar mensagens */
+.clear-button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.clear-button:hover {
+    background-color: #c82333;
+}
+
+/* Estilo das mensagens */
+.messages-container {
+    margin-top: 20px;
+}
+
+.message-card {
+    padding: 15px;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.message-content {
+    font-size: 1rem;
+    color: #333;
+}

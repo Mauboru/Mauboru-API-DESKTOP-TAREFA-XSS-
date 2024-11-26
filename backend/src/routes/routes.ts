@@ -3,7 +3,7 @@ const fb = require('fibonacci');
 
 
 import * as ApiController from '../controllers/apiController';
-
+import * as XSSController from '../controllers/xssController'
 
 const router = Router();
 
@@ -38,7 +38,18 @@ router.get('/mostrarNotificacao', ApiController.mostrarNotificacao);
 router.patch('/atualizarNotificacao', ApiController.atualizarNotificacao);
 
 
+// **Rotas para mensagens relacionadas a XSS**
+// Rota para listar todas as mensagens
+router.get('/messages', XSSController.listarMensagens);
 
+// Rota para adicionar uma nova mensagem
+router.post('/message', XSSController.adicionarMensagem);
+
+// Rota para excluir todas as mensagens
+router.delete('/messages/clear', XSSController.excluirMensagens);
+
+// Rota para simular UMA API EXTERNA QUE ROUA um token
+router.get('/rouboToken', XSSController.rouboToken);
 
 
 
