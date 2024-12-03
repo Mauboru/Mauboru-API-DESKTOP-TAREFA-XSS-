@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Usuario } from '../models/Usuario';
 import { Notificacao } from '../models/Notificacao';
+import jwt from 'jsonwebtoken';
 
 export const ping = (req: Request, res: Response) => {
     res.json({ pong: true });
@@ -28,22 +29,22 @@ export const cadastrarUsuario = async (req: Request, res: Response) => {
 }
 
 export const fazerLogin = async (req: Request, res: Response) => {
-    if (req.body.email && req.body.senha) {
-        let email: string = req.body.email;
-        let senha: string = req.body.senha;
+    const { email, password } = req.body;
 
-        let usuario = await Usuario.findOne({
-            where: { email, senha }
-        });
+    const user = await Usuario.findOne({ where: {email, password }});
 
-        if (usuario) {
-            res.json({ status: true });
-            return;
-        }
+    if (!user) {
+        return res.status(401).json({ error: 'Credenciais inválidas' });
     }
 
-    res.json({ status: false });
-}
+    const token = jwt.sign(
+        { id: user.id, email: user.email },
+        process.env.JWT_SECRET!,
+        { expiresIn: '2h' }
+    );
+
+    res.json({ token });
+};
 
 export const listarEmails = async (req: Request, res: Response) => {
     let usuarios = await Usuario.findAll();
