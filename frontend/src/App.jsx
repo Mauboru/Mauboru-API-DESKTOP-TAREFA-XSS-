@@ -1,23 +1,17 @@
 import { useEffect, useState } from 'react';
-// import DOMPurify from 'dompurify';
 import './App.css';
 
-const saveToken = (token) => localStorage.setItem('authToken', token);
-const getToken = () => localStorage.getItem('authToken');
-
-async function login(username, password, setLoggedIn) {
+async function login(email, senha, setLoggedIn) {
     try {
-        const res = await fetch('http://localhost:3000/login', {
+        const res = await fetch('http://localhost:3000/fazerLogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
+            body: JSON.stringify({ email, senha }),
+
         });
 
-        if (!res.ok) throw new Error('Login falhou');
-
-        const data = await res.json();
-        saveToken(data.token);
-        setLoggedIn(true);
+        if (res.status === 404) throw new Error('Login falhou');
+        else {setLoggedIn(true);}
     } catch (err) {
         alert(err.message);
     }
@@ -30,9 +24,9 @@ function App() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    useEffect(() => {
-        if (loggedIn) loadMessages(setMessages);
-    }, [loggedIn]);
+    // useEffect(() => {
+    //     if (loggedIn) loadMessages(setMessages);
+    // }, [loggedIn]);
 
     if (!loggedIn) {
         return (
@@ -60,47 +54,47 @@ function App() {
                 </form>
             </div>
         );
+    } else {
+        return (
+            <main className="app-container">
+                <header>
+                    <h1>Segurança de Sistemas - XSS</h1>
+                </header>
+                <form
+                    className="message-form"
+                    onSubmit={async (e) => {
+                        e.preventDefault();
+                        await saveMessage(newMessage);
+                        await loadMessages(setMessages);
+                        setNewMessage('');
+                    }}
+                >
+                    <textarea
+                        className="message-input"
+                        value={newMessage}
+                        onChange={(e) => setNewMessage(e.target.value)}
+                        placeholder="Digite sua mensagem aqui..."
+                    />
+                    <button className="submit-button" type="submit">
+                        Enviar Mensagem
+                    </button>
+                </form>
+                <hr />
+                <div className="messages-container">
+                    {messages.map((m) => (
+                        <div key={m.id} className="message-card">
+                            <div
+                                className="message-content"
+                                dangerouslySetInnerHTML={{
+                                    __html: DOMPurify.sanitize(m.messageHtml),
+                                }}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </main>
+        );
     }
-
-    return (
-        <main className="app-container">
-            <header>
-                <h1>Segurança de Sistemas - XSS</h1>
-            </header>
-            <form
-                className="message-form"
-                onSubmit={async (e) => {
-                    e.preventDefault();
-                    await saveMessage(newMessage);
-                    await loadMessages(setMessages);
-                    setNewMessage('');
-                }}
-            >
-                <textarea
-                    className="message-input"
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    placeholder="Digite sua mensagem aqui..."
-                />
-                <button className="submit-button" type="submit">
-                    Enviar Mensagem
-                </button>
-            </form>
-            <hr />
-            <div className="messages-container">
-                {messages.map((m) => (
-                    <div key={m.id} className="message-card">
-                        <div
-                            className="message-content"
-                            dangerouslySetInnerHTML={{
-                                __html: DOMPurify.sanitize(m.messageHtml),
-                            }}
-                        />
-                    </div>
-                ))}
-            </div>
-        </main>
-    );
 }
 
 export default App;
