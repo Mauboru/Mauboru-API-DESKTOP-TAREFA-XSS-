@@ -50,9 +50,4 @@ router.delete('/messages/clear', XSSController.excluirMensagens);
 // Rota para simular UMA API EXTERNA QUE ROUA um token
 router.get('/rouboToken', XSSController.rouboToken);
 
-
-
-
-
-
 export default router;

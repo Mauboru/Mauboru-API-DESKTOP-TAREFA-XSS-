@@ -37,6 +37,11 @@ export const fazerLogin = async (req: Request, res: Response) => {
             where: { email, senha }
         });
 
+        const token = jwt.sign({ email: req.body.email, id: req.body.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+        res.json({ token });
+
+        console.log(token)
+
         if (usuario) {
             res.status(200).json({ message: "foi :)" });
             return;
